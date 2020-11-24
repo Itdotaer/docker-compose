@@ -1,12 +1,14 @@
-version: '3.1'
+version: '3.4'
 
 services:
   zoo1:
     image: zookeeper
     restart: always
     hostname: zoo1
+    container_name: zoo1
     networks:
-      - some-net
+      br17219:
+        ipv4_address: 172.19.0.11
     ports:
       - 2181:2181
     environment:
@@ -17,8 +19,10 @@ services:
     image: zookeeper
     restart: always
     hostname: zoo2
+    container_name: zoo2
     networks:
-      - some-net
+      br17219:
+        ipv4_address: 172.19.0.12
     ports:
       - 2182:2181
     environment:
@@ -28,14 +32,16 @@ services:
   zoo3:
     image: zookeeper
     restart: always
-    hostname: zoo3
+    container_name: zoo3
     networks:
-      - some-net
+      br17219:
+        ipv4_address: 172.19.0.13
     ports:
       - 2183:2181
     environment:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
 networks:
-  some-net:
-    driver: bridge
+  br17219:
+    external: 
+      name: br17219
