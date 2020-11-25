@@ -2,17 +2,20 @@ version: '3.6'
 services:
   kafka_manager:
     image: hlebalbau/kafka-manager:stable
-    hostname: kafka-manager
-    networks: 
-      - zookeeper_some-net
+    hostname: kafka_manager
+    container_name: kafka_manager
     ports:
       - "9000:9000"
     environment:
-      ZK_HOSTS: zoo1:2181,zoo2:2182,zoo3:2183
+      ZK_HOSTS: zoo1:2184,zoo2:2185,zoo3:2186
       APPLICATION_SECRET: random-secret
       KAFKA_MANAGER_AUTH_ENABLED: "true"
       KAFKA_MANAGER_USERNAME: itdotaer
       KAFKA_MANAGER_PASSWORD: itdotaer
-networks: 
-  zookeeper_some-net:
-    external: true
+    networks:
+      br17219:
+        ipv4_address: 172.19.0.17
+networks:
+  br17219:
+    external: 
+      name: br17219
